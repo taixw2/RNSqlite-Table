@@ -1,0 +1,8 @@
+{
+  "name": "rn-sqlite-table",
+  "version": "1.0.0",
+  "description": "Write sql using declarative",
+  "main": "index.js",
+  "author": "iqqq",
+  "license": "MIT"
+}
