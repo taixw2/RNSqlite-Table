@@ -22,8 +22,8 @@ const user = Table("user");
 user.delete({ age: 10 })
 // output
 // {
-//    statement:  "DELETE FROM `user` WHERE age = ? AND name = ? OR age = ? ",
-//    values: [10, 'Ou', 20]
+//    statement:  "DELETE FROM `user` WHERE age = ?",
+//    values: [10]
 // }
 ```
 
@@ -34,8 +34,8 @@ const user = Table("user");
 user.update({ age: 10 }).where({ name: 'Ou' })
 // output
 // {
-//    statement:  "UPDATE `user` SET `age`=? WHERE `name` =?",
-//    values: [10, 'Ou']
+//    statement:  "UPDATE `user` SET WHERE `name` =?",
+//    values: ['Ou']
 // }
 ```
 
