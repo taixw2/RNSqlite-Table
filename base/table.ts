@@ -1,8 +1,7 @@
 import { ActionResultType } from './../index.d';
 import * as Const from "./constants";
-import * as Type from "../index.d";
-import { pack, insert, delete$, where, update, select, group, order, limit } from "../functions";
 import merge from './merge';
+import { pack, insert, delete$, where, update, select, group, order, limit } from "../functions";
 
 function table() {
   const opeartorStore = {
@@ -13,25 +12,25 @@ function table() {
   }
 
   const actions = {
-    insert(data: Type.InsertParams, action?: Type.WriteActionType) {
-      return pack(insert)(end, query)
-    },
-    delete(data: Type.DeleteParams) {
-      return pack(delete$, where)(end, query)
-    },
-    update(data: Type.UpdateParams, action?: Type.WriteActionType) {
-      return pack(update, where)(end, query)
-    },
-    select(data: Type.SelectParams) {
-      return pack(select, where, group, order, limit)(end, query)
-    },
+    insert: pack(insert)(end, query),
+    delete: pack(delete$, where)(end, query),
+    update: pack(update, where)(end, query),
+    select: pack(select, where, group, order, limit)(end, query),
   }
 
-  function query(result: ActionResultType) {
+  function _clearStore() {
+    Object
+    .keys(opeartorStore)
+    .forEach(key => opeartorStore[key].length = 0)
+  }
+
+  function query(result: ActionResultType): string[] {
     if (opeartorStore[result.type][0] !== result) {
       end(result)
     }
-    return merge(opeartorStore);
+    const statements = merge(opeartorStore);
+    _clearStore()
+    return statements;
   }
 
   function end(result: ActionResultType) {
