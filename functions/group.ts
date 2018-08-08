@@ -1,9 +1,10 @@
-import { SubStatement } from './../base/constants';
-import { ActionResultType, GroupParams } from './../index.d';
+import { SubStatement } from "./../base/constants";
+import { ActionResultType, GroupParams } from "./../index.d";
 
 export default function group(data: GroupParams): ActionResultType {
   return {
+    stmtObject: {},
     type: SubStatement.GROUP,
-    stmt: {},
-  }
+    get stmt() { return ""; },
+  };
 }

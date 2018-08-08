@@ -1,61 +1,61 @@
 import {
-  SubStatementType,
-  SupStatementType,
   ArithmeticOpearentorType,
+  BitwiseOperatorsType,
   ComparisonOpearetorType,
   LogicalOperatorsType,
-  BitwiseOperatorsType,
-  WriteActionType
+  SubStatementType,
+  SupStatementType,
+  WriteActionType,
 } from "../index.d";
 
 export const SupStatement: SupStatementType = {
+  DELETE: "delete",
   INSERT: "insert",
   SELECT: "select",
   UPDATE: "update",
-  DELETE: "delete",
-}
+};
 
 export const SubStatement: SubStatementType = {
-  WHERE: "where",
+  GROUP: "group",
   LIKE: "like",
   LIMIT: "limit",
-  GROUP: "group",
   ORDER: "order",
-}
+  WHERE: "where",
+};
 
 export const ArithmeticOpearentor: ArithmeticOpearentorType = {
   ADD: "+",
-  SUBTRACTION: "-",
-  MULTIPLY: "*",
   DIVISION: "/",
   MODULUS: "%",
-}
+  MULTIPLY: "*",
+  SUBTRACTION: "-",
+};
 
 export const ComparisonOpearetor: ComparisonOpearetorType = {
   EQUAL: "=",
-  NOTEQUAL: "!=",
   GT: ">",
-  LT: "<",
   GTEQUAL: ">=",
+  LT: "<",
   LTEQUAL: "<=",
   NOGT: "!>",
-  NOLT: "!<"
-}
+  NOLT: "!<",
+  NOTEQUAL: "!=",
+};
 
 export const LogicalOperators: LogicalOperatorsType = {
   AND: "AND",
   BETWEEN: "BETWEEN",
   EXISTS: "EXISTS",
-  IN: "IN",
-  NOTIN: "NOT IN",
-  LIKE: "LIKE",
   GLOB: "GLOB",
-  OR: "OR",
-  ISNULL: "IS NULL",
+  IN: "IN",
   IS: "IS",
   ISNOT: "IS NOT",
+  ISNULL: "IS NULL",
+  LIKE: "LIKE",
+  NOTIN: "NOT IN",
+  OR: "OR",
   UNIQUE: "UNIQUE",
-}
+};
 
 export const BitwiseOperators: BitwiseOperatorsType = {
   BOTH: "&",
@@ -63,12 +63,12 @@ export const BitwiseOperators: BitwiseOperatorsType = {
   FILPPING: "~",
   LEFT: "<<",
   RIGHT: ">>",
-}
+};
 
 export const WriteAction: WriteActionType = {
-  REPLACE: "REPLACE",
-  ROLLBACK: "ROLLBACK",
+  ABORT: "ABORT",
   FAIL: "FAIL",
   IGNORE: "IGNORE",
-  ABORT: "ABORT",
-}
+  REPLACE: "REPLACE",
+  ROLLBACK: "ROLLBACK",
+};

@@ -25,7 +25,8 @@ export type WriteActionType = {
 
 export type ActionResultType = {
   type: string,
-  stmt: any,
+  stmtObject: any,
+  stmt: string,
   children?: { [key: string]: any[] }
 }
 

@@ -4,5 +4,9 @@
   "description": "Write sql using declarative",
   "main": "index.js",
   "author": "iqqq",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1"
+  }
 }

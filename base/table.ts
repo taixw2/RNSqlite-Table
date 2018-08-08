@@ -1,7 +1,8 @@
-import { ActionResultType } from './../index.d';
+import { delete$, group, insert, limit, order, select , update, where } from "../functions";
+import { pack } from "../utils";
+import { ActionResultType } from "./../index.d";
 import * as Const from "./constants";
-import merge from './merge';
-import { pack, insert, delete$, where, update, select, group, order, limit } from "../functions";
+import merge from "./merge";
 
 function table() {
   const opeartorStore = {
@@ -9,35 +10,30 @@ function table() {
     [Const.SupStatement.INSERT]: [],
     [Const.SupStatement.DELETE]: [],
     [Const.SupStatement.UPDATE]: [],
-  }
+  };
 
   const actions = {
-    insert: pack(insert)(end, query),
     delete: pack(delete$, where)(end, query),
-    update: pack(update, where)(end, query),
+    insert: pack(insert)(end, query),
     select: pack(select, where, group, order, limit)(end, query),
-  }
-
-  function _clearStore() {
-    Object
-    .keys(opeartorStore)
-    .forEach(key => opeartorStore[key].length = 0)
-  }
+    update: pack(update, where)(end, query),
+  };
 
   function query(result: ActionResultType): string[] {
     if (opeartorStore[result.type][0] !== result) {
-      end(result)
+      end(result);
     }
     const statements = merge(opeartorStore);
-    _clearStore()
+    // _clearStore
+    Object.keys(opeartorStore).forEach((key) => opeartorStore[key].length = 0);
     return statements;
   }
 
   function end(result: ActionResultType) {
     opeartorStore[result.type].unshift(result);
-    return { ...actions }
+    return { ...actions };
   }
-  return { ...actions }
+  return { ...actions };
 }
 
 export default table;
