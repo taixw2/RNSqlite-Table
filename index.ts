@@ -1,14 +1,7 @@
+export { default as Table } from "./base/table";
 
-// import Table from "./Table";
+import * as Const from "./base/constants";
+import Table from "./base/table";
 
-// export { default as Table } from "./Table";
-export {
-  SupStatement,
-  SubStatement,
-  ArithmeticOpearentor,
-  ComparisonOpearetor,
-  LogicalOperators,
-  BitwiseOperators,
-} from "./base/constants";
-
-// export default Table;
+export { Const };
+export default Table;
