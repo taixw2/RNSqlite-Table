@@ -1,6 +1,6 @@
-import { insert } from "../functions";
+import { delete$, group, insert, like, limit, offset, order, select, update, where } from "../functions";
 import { component } from "../utils";
-import { IActionResultType, IQueryStmtType, Table  } from "./../index.d";
+import { IActionResultType, IQueryStmtType, Table } from "./../index.d";
 import { flat, last } from "./../utils/extension";
 
 type StoreType = Map<string, IActionResultType[]>;
@@ -16,12 +16,39 @@ type StoreType = Map<string, IActionResultType[]>;
  * ...
  * }
  *
- * @param {...Array<(result: IActionResultType) => void>} injectFn
+ * @param {...Array<(result: IActionResultType) => void>} injectFns
  * @returns
  */
-function initAction(...injectFn: Array<(result: IActionResultType) => void>) {
+function initAction(...injectFns: Array<(result: IActionResultType) => void>) {
   return {
-    insert: component(insert)(...injectFn),
+    /**
+     * 入参：
+     * 1. { age: 10 }
+     * 2. { age: ["<", 10] }
+     * 3. [{ age: 10 }, { age: 20 }]
+     */
+    delete: component(delete$)(...injectFns),
+    /**
+     * 入参：
+     * 1. ({ a: 10, b: 20 })
+     * 2. ({ a: 10, b: 20 }, REPLACE)
+     * 3. ({ a: 10, b: 20 }, IGNORE)
+     * ...
+     */
+    insert: component(insert)(...injectFns),
+    /**
+     * 入参:
+     * 1. undefined
+     * 2. ["name", "age"]
+     * 3. [{ name: "nickName" }, "age"]
+     * 4. { name: "nickName", age: "age" }
+     */
+    select: component(select, where, group, like, limit, offset, order)(...injectFns),
+    /**
+     * 入参:
+     * { name: "Ou", age: 10 }
+     */
+    update: component(update, where)(...injectFns),
   };
 }
 
@@ -60,8 +87,13 @@ function initStore() {
 }
 
 export default (function table(name: string) {
-  const store = initStore();
+  const store   = initStore();
   const actions = initAction(end, query);
+
+  function _mergeStmtByStore() {
+    return flat(Array.from(store.values())
+      .map((value) => value.map((actionResule) => actionResule.getStatementInfo(name))));
+  }
 
   /**
    * 调用 query 后执行该闭包
@@ -71,9 +103,12 @@ export default (function table(name: string) {
    */
   function query(result: IActionResultType): IQueryStmtType[] | IQueryStmtType {
     const queryType = result.type;
-    if (store.getLate(queryType) !== result) { store.add(result); }
-    const statements = flat(Array.from(store.values())
-      .map((value) => value.map((actionResule) => actionResule.getStatementInfo(name))));
+    if (store.getLate(queryType) !== result) {
+      store.add(result);
+    }
+    // get statements
+    const statements = _mergeStmtByStore();
+    // clear store
     store.clear();
     return statements.length === 1 ? statements[0] : statements;
   }

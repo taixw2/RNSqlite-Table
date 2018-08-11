@@ -1,12 +1,10 @@
-import { SupStatement } from "../base/constants";
-import { ActionResultType, DeleteParams } from "./../index.d";
+import { DeleteParams, IActionResultType } from "./../index.d";
 
-export default function delete$(data: DeleteParams): ActionResultType {
-  // TODO: 逻辑处理
+export default function delete$(data: DeleteParams): IActionResultType {
   return {
     children: {},
-    stmtObject: { data },
-    type: SupStatement.DELETE,
-    get stmt() { return ""; },
+    data: null,
+    type: delete$.name,
+    getStatementInfo() { return { stmt: "", value: [] }; },
   };
 }

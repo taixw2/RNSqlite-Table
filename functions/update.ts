@@ -1,11 +1,10 @@
-import { SupStatement } from "./../base/constants";
-import { ActionResultType, UpdateParams } from "./../index.d";
+import { IActionResultType, UpdateParams } from "./../index.d";
 
-export default function update(data: UpdateParams): ActionResultType {
+export default function update(data: UpdateParams): IActionResultType {
   return {
     children: {},
-    stmtObject: {},
-    type: SupStatement.UPDATE,
-    get stmt() { return ""; },
+    data: {},
+    type: update.name,
+    getStatementInfo() { return { stmt: "", value: [] }; },
   };
 }

@@ -1,10 +1,10 @@
-import { SubStatement } from "../base/constants";
-import { ActionResultType, OrderParams } from "../index.d";
+import * as Const from "../base/constants";
+import { IActionResultType, OrderParams } from "../index.d";
 
-export default function order(data: OrderParams): ActionResultType {
+export default function order(data: OrderParams): IActionResultType {
   return {
-    stmtObject: {},
-    type: SubStatement.ORDER,
-    get stmt() { return ""; },
+    data: {},
+    type: Const.SubStatement.ORDER,
+    getStatementInfo() { return { stmt: "", value: [] }; },
   };
 }

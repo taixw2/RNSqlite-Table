@@ -1,11 +1,10 @@
-import { SupStatement } from "./../base/constants";
-import { ActionResultType, SelectParams } from "./../index.d";
+import { IActionResultType, SelectParams } from "./../index.d";
 
-export default function select(column: SelectParams): ActionResultType {
+export default function select(data: SelectParams): IActionResultType {
   return {
     children: {},
-    stmtObject: {},
-    type: SupStatement.SELECT,
-    get stmt() { return ""; },
+    data: { data },
+    type: select.name,
+    getStatementInfo() { return { stmt: "", value: [] }; },
   };
 }

@@ -1,10 +1,10 @@
-import { SubStatement } from "./../base/constants";
-import { ActionResultType, WhereParams } from "./../index.d";
+import * as Const from "../base/constants";
+import { IActionResultType, WhereParams } from "./../index.d";
 
-export default function update(data: WhereParams): ActionResultType {
+export default function where(data: WhereParams): IActionResultType {
   return {
-    stmtObject: {},
-    type: SubStatement.WHERE,
-    get stmt() { return ""; },
+    data: {},
+    type: Const.SubStatement.WHERE,
+    getStatementInfo() { return { stmt: "", value: [] }; },
   };
 }

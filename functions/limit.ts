@@ -1,10 +1,10 @@
-import { SubStatement } from "../base/constants";
-import { ActionResultType, LimitParams } from "../index.d";
+import * as Const from "../base/constants";
+import { IActionResultType } from "../index.d";
 
-export default function limit(data: LimitParams): ActionResultType {
+export default function limit(data: number): IActionResultType {
   return {
-    stmtObject: {},
-    type: SubStatement.LIMIT,
-    get stmt() { return ""; },
+    data: {},
+    type: Const.SubStatement.LIMIT,
+    getStatementInfo() { return { stmt: "", value: [] }; },
   };
 }
