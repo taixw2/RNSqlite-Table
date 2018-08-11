@@ -1,12 +1,13 @@
-export type BaseType   = string | number | boolean | null | void
-export type HashAny    = { [key: string]: any }
-export type HashObject = { [key: string]: BaseType }
-export type HashString = { [key: string]: string }
-export type None       = "BLOB";
-export type Integer    = "INT" | "INTEGER" | "TINYINT" | "SMALLINT" | "MEDIUMINT" | "BIGINT" | "UNSIGNED BIG INT" | "INT2" | "INT8";
-export type Text       = "CHARACTER" | "VARCHAR" | "VARYING CHARACTER" | "NCHAR" | "NATIVE CHARACTER" | "NVARCHAR" | "TEXT" | "CLOB";
-export type Real       = "REAL" | "DOUBLE" | "DOUBLE PRECISION" | "FLOAT";
-export type Numeric    = "NUMERIC" | "DECIMAL" | "BOOLEAN" | "DATE" | "DATETIME";
+export type BaseType        = string | number | boolean | null | void
+export type HashAny         = { [key: string]: any }
+export type HashObject      = { [key: string]: BaseType }
+export type HashString      = { [key: string]: string }
+export type None            = "BLOB";
+export type Integer         = "INT" | "INTEGER" | "TINYINT" | "SMALLINT" | "MEDIUMINT" | "BIGINT" | "UNSIGNED BIG INT" | "INT2" | "INT8";
+export type Text            = "CHARACTER" | "VARCHAR" | "VARYING CHARACTER" | "NCHAR" | "NATIVE CHARACTER" | "NVARCHAR" | "TEXT" | "CLOB";
+export type Real            = "REAL" | "DOUBLE" | "DOUBLE PRECISION" | "FLOAT";
+export type Numeric         = "NUMERIC" | "DECIMAL" | "BOOLEAN" | "DATE" | "DATETIME";
+export type WriteActionType = "REPLACE" | "ROLLBACK" | "ABORT" | "FAIL" | "IGNORE"
 
 // query 返回的数据类型
 export interface IQueryStmtType {
@@ -21,17 +22,33 @@ export interface IActionResultType {
   children?       : { [key: string]: any[] }
 }
 
-export const SupStatement    : { [key: string]: SupStatementType }
-export type SupStatementType = "insert"
+export type ConditionExpressionType = { [key: string]: [string, BaseType] }
+export type InsertParams            = HashObject
+export type DeleteParams            = HashObject | Array<[ConditionExpressionType, BaseType] | HashObject>
+export type UpdateParams            = HashObject
+export type SelectParams            = Array<string | HashString> | HashString
 
-export type InsertParams     = HashObject
-export type WriteActionType  = "REPLACE" | "ROLLBACK" | "ABORT" | "FAIL" | "IGNORE"
+export type whereStatement = { where(params: DeleteParams): IInjectMethods }
+export type havingStatement = { having(): IInjectMethods }
+export type groupStatement = { group(params: string | string[]): IInjectMethods }
+export type orderStatement = { order(params: string | Array<string | [string, string]>): IInjectMethods }
+export type limitStatement = { limit(params: number): IInjectMethods }
+export type offsetStatement = { offset(params: number): IInjectMethods }
 
-interface TableInstance {
-  insert: (data: InsertParams, action?: WriteActionType) => HashAny,
+
+interface IInjectMethods {
+  query: () => IQueryStmtType,
+  end: () => ITableInstance
 }
 
-export type Table = (name: string) => TableInstance;
+interface ITableInstance {
+  insert: (data: InsertParams, action?: WriteActionType) => IInjectMethods,
+  delete: (data: InsertParams) => IInjectMethods,
+  update: (data: UpdateParams, action?: WriteActionType) => IInjectMethods & whereStatement,
+  select: (data: SelectParams) => IInjectMethods & whereStatement & groupStatement & havingStatement & groupStatement & orderStatement & limitStatement & offsetStatement,
+}
+
+export type Table = (name: string) => ITableInstance;
 export default Table;
 
 

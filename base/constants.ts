@@ -1,13 +1,8 @@
-import {
-  SupStatementType,
-  WriteActionType,
-} from "../index.d";
-
-export const SupStatement: {[key: string]: SupStatementType} = {
+export const SupStatement = {
   INSERT: "insert",
 };
 
-export const WriteAction: { [key: string]: WriteActionType } = {
+export const WriteAction = {
   ABORT: "ABORT",
   FAIL: "FAIL",
   IGNORE: "IGNORE",
