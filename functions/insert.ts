@@ -1,13 +1,25 @@
-import { SupStatement } from "../base/constants";
-import { ActionResultType, InsertParams, WriteActionType } from "./../index.d";
+import { IActionResultType, InsertParams, WriteActionType } from "./../index.d";
 
-export default function insert(data: InsertParams, action?: WriteActionType): ActionResultType {
-  // TODO: 逻辑处理
+function InsertGenerator(table: string, columns: string, values: string, action: string) {
+  return `INSERT INTO ${action}\`${table}\` (${columns}) VALUES (${values})`;
+}
+
+export default function insert(data: InsertParams, action?: WriteActionType): IActionResultType {
+  const keys = Object.keys(data);
+  const values = Object.values(data);
+  const columnsStr = keys.map((column) => `\`${column}\``).join(",");
+  const valuesStr = keys.map((_) => "?").join(",");
+  const actionStr = action ? `OR ${action} ` : "";
 
   return {
     children: {},
-    stmtObject: { data },
-    type: SupStatement.INSERT,
-    get stmt() { return ""; },
+    data: null,
+    type: insert.name,
+    getStatementInfo(table: string) {
+      return {
+        stmt: InsertGenerator(table, columnsStr, valuesStr, actionStr),
+        value: values,
+      };
+    },
   };
 }

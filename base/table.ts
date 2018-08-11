@@ -1,3 +1,5 @@
+import { insert } from "../functions";
+import { component } from "../utils";
 import { IActionResultType, IQueryStmtType, Table  } from "./../index.d";
 import { flat, last } from "./../utils/extension";
 
@@ -9,7 +11,7 @@ type StoreType = Map<string, IActionResultType[]>;
  * initAction(query, end)
  * 返回
  * {
- *  select : { query, end, where ... },
+ *  select: { query, end, where ... },
  *  insert: { query, end },
  * ...
  * }
@@ -18,7 +20,9 @@ type StoreType = Map<string, IActionResultType[]>;
  * @returns
  */
 function initAction(...injectFn: Array<(result: IActionResultType) => void>) {
-  return {};
+  return {
+    insert: component(insert)(...injectFn),
+  };
 }
 
 /**
