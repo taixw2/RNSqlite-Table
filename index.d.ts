@@ -27,25 +27,28 @@ export type InsertParams            = HashObject
 export type DeleteParams            = HashObject | Array<[ConditionExpressionType, BaseType] | HashObject>
 export type UpdateParams            = HashObject
 export type SelectParams            = Array<string | HashString> | HashString
+export type OrderParams             = string | Array<string | [string, string]>
+export type WhereParams             = DeleteParams
 
-export type whereStatement = { where(params: DeleteParams): IInjectMethods }
-export type havingStatement = { having(): IInjectMethods }
-export type groupStatement = { group(params: string | string[]): IInjectMethods }
-export type orderStatement = { order(params: string | Array<string | [string, string]>): IInjectMethods }
-export type limitStatement = { limit(params: number): IInjectMethods }
-export type offsetStatement = { offset(params: number): IInjectMethods }
+export type WhereStatement  = { where(params: DeleteParams): IInjectMethods }
+export type HavingStatement = { having(): IInjectMethods }
+export type GroupStatement  = { group(params: string | string[]): IInjectMethods }
+export type OrderStatement  = { order(params: WhereParams): IInjectMethods }
+export type LimitStatement  = { limit(params: number): IInjectMethods }
+export type OffsetStatement = { offset(params: number): IInjectMethods }
+export type LikeStatement   = { like(params: string): IInjectMethods }
 
 
 interface IInjectMethods {
   query: () => IQueryStmtType,
-  end: () => ITableInstance
+  end  : () => ITableInstance
 }
 
 interface ITableInstance {
   insert: (data: InsertParams, action?: WriteActionType) => IInjectMethods,
   delete: (data: InsertParams) => IInjectMethods,
-  update: (data: UpdateParams, action?: WriteActionType) => IInjectMethods & whereStatement,
-  select: (data: SelectParams) => IInjectMethods & whereStatement & groupStatement & havingStatement & groupStatement & orderStatement & limitStatement & offsetStatement,
+  update: (data: UpdateParams, action?: WriteActionType) => IInjectMethods & WhereStatement,
+  select: (data: SelectParams) => IInjectMethods & WhereStatement & GroupStatement & HavingStatement & GroupStatement & OrderStatement & LimitStatement & OffsetStatement,
 }
 
 export type Table = (name: string) => ITableInstance;
