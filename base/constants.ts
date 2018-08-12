@@ -1,4 +1,4 @@
-import { WriteActionType } from "../index.d";
+import { ConditionExpressionType, WriteActionType } from "./../index.d";
 
 export const SubStatement = {
   GROUP: "GROUP",
@@ -16,4 +16,15 @@ export const WriteAction: { [key: string]: WriteActionType } = {
   IGNORE: "IGNORE",
   REPLACE: "REPLACE",
   ROLLBACK: "ROLLBACK",
+};
+
+export const ComparisonOpearetor: { [key: string]: ConditionExpressionType} = {
+  EQUAL: "=",
+  GT: ">",
+  GTEQUAL: ">=",
+  LT: "<",
+  LTEQUAL: "<=",
+  NOGT: "!>",
+  NOLT: "!<",
+  NOTEQUAL: "!=",
 };

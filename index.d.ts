@@ -1,13 +1,14 @@
-export type BaseType        = string | number | boolean | null | void
-export type HashAny         = { [key: string]: any }
-export type HashObject      = { [key: string]: BaseType }
-export type HashString      = { [key: string]: string }
-export type None            = "BLOB";
-export type Integer         = "INT" | "INTEGER" | "TINYINT" | "SMALLINT" | "MEDIUMINT" | "BIGINT" | "UNSIGNED BIG INT" | "INT2" | "INT8";
-export type Text            = "CHARACTER" | "VARCHAR" | "VARYING CHARACTER" | "NCHAR" | "NATIVE CHARACTER" | "NVARCHAR" | "TEXT" | "CLOB";
-export type Real            = "REAL" | "DOUBLE" | "DOUBLE PRECISION" | "FLOAT";
-export type Numeric         = "NUMERIC" | "DECIMAL" | "BOOLEAN" | "DATE" | "DATETIME";
-export type WriteActionType = "REPLACE" | "ROLLBACK" | "ABORT" | "FAIL" | "IGNORE"
+export type BaseType                = string | number | boolean | null | void
+export type HashAny                 = { [key: string]: any }
+export type HashObject              = { [key: string]: BaseType }
+export type HashString              = { [key: string]: string }
+export type None                    = "BLOB";
+export type Integer                 = "INT" | "INTEGER" | "TINYINT" | "SMALLINT" | "MEDIUMINT" | "BIGINT" | "UNSIGNED BIG INT" | "INT2" | "INT8";
+export type Text                    = "CHARACTER" | "VARCHAR" | "VARYING CHARACTER" | "NCHAR" | "NATIVE CHARACTER" | "NVARCHAR" | "TEXT" | "CLOB";
+export type Real                    = "REAL" | "DOUBLE" | "DOUBLE PRECISION" | "FLOAT";
+export type Numeric                 = "NUMERIC" | "DECIMAL" | "BOOLEAN" | "DATE" | "DATETIME";
+export type WriteActionType         = "REPLACE" | "ROLLBACK" | "ABORT" | "FAIL" | "IGNORE"
+export type ConditionExpressionType = "=" | "!=" | "<" | ">" | ">=" | "<=" | "!<" | "!>"
 
 // query 返回的数据类型
 export interface IQueryStmtType {
@@ -22,13 +23,14 @@ export interface IActionResultType {
   children?       : { [key: string]: any[] }
 }
 
-export type ConditionExpressionType = { [key: string]: [string, BaseType] }
-export type InsertParams            = HashObject
-export type DeleteParams            = HashObject | Array<[ConditionExpressionType, BaseType] | HashObject>
-export type UpdateParams            = HashObject
-export type SelectParams            = Array<string | HashString> | HashString
-export type OrderParams             = string | Array<string | [string, string]>
-export type WhereParams             = DeleteParams
+export type ConditionParams = { [key: string]: [ConditionExpressionType, BaseType] | BaseType }
+
+export type WhereParams  = HashObject | HashObject[] | ConditionParams | ConditionParams[]
+export type InsertParams = HashObject
+export type UpdateParams = HashObject
+export type SelectParams = Array<string | HashString> | HashString
+export type OrderParams  = string | Array<string | [string, string]>
+export type DeleteParams = WhereParams
 
 export type WhereStatement  = { where(params: DeleteParams): IInjectMethods }
 export type HavingStatement = { having(): IInjectMethods }
@@ -46,7 +48,7 @@ interface IInjectMethods {
 
 interface ITableInstance {
   insert: (data: InsertParams, action?: WriteActionType) => IInjectMethods,
-  delete: (data: InsertParams) => IInjectMethods,
+  delete: (data: DeleteParams) => IInjectMethods,
   update: (data: UpdateParams, action?: WriteActionType) => IInjectMethods & WhereStatement,
   select: (data: SelectParams) => IInjectMethods & WhereStatement & GroupStatement & HavingStatement & GroupStatement & OrderStatement & LimitStatement & OffsetStatement,
 }
