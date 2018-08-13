@@ -15,9 +15,9 @@ export default function insert(data: InsertParams, action?: WriteActionType): IA
     children: {},
     data: null,
     type: insert.name,
-    getStatementInfo(table: string) {
+    getStatementInfo(table?: string) {
       return {
-        stmt: InsertGenerator(table, columnsStr, valuesStr, actionStr),
+        stmt: InsertGenerator(table!, columnsStr, valuesStr, actionStr),
         value: values,
       };
     },
