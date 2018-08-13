@@ -35,8 +35,7 @@ export default function component(target: ActionFuncType, ...fnappendToTarget: A
           ...prevValue,
           [currentValue.name]: (...args: any[]) => {
             const subActionResult: IActionResultType = currentValue(...args);
-            const targetChildren = targetResult.children![subActionResult.type] || [];
-            targetResult.children![subActionResult.type] = targetChildren.concat(subActionResult.data);
+            targetResult.children![subActionResult.type] = subActionResult;
             return { ...actions, ...injectFunActions };
           },
         }),
