@@ -1,7 +1,7 @@
 import { delete$, group, insert, like, limit, offset, order, select, update, where } from "../functions";
-import { component } from "../utils";
 import { IActionResultType, IQueryStmtType, Table } from "./../index.d";
 import { flat, last } from "./../utils/extension";
+import component from "./component";
 
 type StoreType = Map<string, IActionResultType[]>;
 

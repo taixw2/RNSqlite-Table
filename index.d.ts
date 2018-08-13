@@ -19,8 +19,8 @@ export interface IQueryStmtType {
 export interface IActionResultType {
   type            : string;
   data            : any;
-  getStatementInfo: (table: string) => IQueryStmtType;
-  children?       : { [key: string]: any[] }
+  getStatementInfo: (table?: string) => IQueryStmtType;
+  children?       : { [key: string]: IActionResultType }
 }
 
 export type ConditionParams = { [key: string]: [ConditionExpressionType, BaseType] | BaseType }
