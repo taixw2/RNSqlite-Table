@@ -45,3 +45,27 @@ describe("delete", () => {
       .toEqual({ stmt: "DELETE FROM `User` WHERE `age` < ?", value: [10] });
   });
 });
+
+describe("update", () => {
+  const user = Table("User");
+
+  it("UPDATE `User` SET name='Ou' where id = 0", () => {
+    expect(user.update({ name: "Ou" }).where({ id: 0 }).query())
+      .toEqual({ stmt: "UPDATE `User` SET `name` = ? WHERE `id` = ?", value: ["Ou", 0] });
+  });
+
+  it("UPDATE OR REPLACE `User` SET name='Ou' where id = 0", () => {
+    expect(user.update({ name: "Ou" }, Const.WriteAction.REPLACE).where({ id: 0 }).query())
+      .toEqual({ stmt: "UPDATE OR REPLACE `User` SET `name` = ? WHERE `id` = ?", value: ["Ou", 0] });
+  });
+
+  it("UPDATE OR ABORT `User` SET name='Ou' where id = 0", () => {
+    expect(user.update({ name: "Ou" }, Const.WriteAction.ABORT).where({ id: 0 }).query())
+      .toEqual({ stmt: "UPDATE OR ABORT `User` SET `name` = ? WHERE `id` = ?", value: ["Ou", 0] });
+  });
+
+  it("UPDATE OR ROLLBACK `User` SET name='Ou' where id = 0", () => {
+    expect(user.update({ name: "Ou" }, Const.WriteAction.ROLLBACK).where({ id: 0 }).query())
+      .toEqual({ stmt: "UPDATE OR ROLLBACK `User` SET `name` = ? WHERE `id` = ?", value: ["Ou", 0] });
+  });
+});
