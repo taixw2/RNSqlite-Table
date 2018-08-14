@@ -29,7 +29,7 @@ export type WhereParams  = HashObject | HashObject[] | ConditionParams | Conditi
 export type InsertParams = HashObject
 export type UpdateParams = HashObject
 export type SelectParams = string | Array<string | HashString> | HashString
-export type OrderParams  = string | Array<string | [string, string]>
+export type OrderParams  = string | Array<string | HashString>
 export type DeleteParams = WhereParams
 
 interface IInjectMethods {
@@ -46,8 +46,7 @@ interface ISelectMethdos extends IInjectMethods {
   having: () => ISelectMethdos,
   group: (params: string | string[]) => ISelectMethdos,
   order: (params: OrderParams) => ISelectMethdos,
-  limit: (params: number) => ISelectMethdos,
-  offset: (params: number) => ISelectMethdos,
+  limit: (limitValue: number, offsetValue: number) => ISelectMethdos,
   like: (params: string) => ISelectMethdos,
 }
 
