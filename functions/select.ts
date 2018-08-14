@@ -6,10 +6,9 @@ import { IActionResultType, SelectParams } from "./../index.d";
 const sortRult = [
   Const.SubStatement.WHERE,
   Const.SubStatement.GROUP,
-  Const.SubStatement.HAVING,
+  Const.SubStatement.LIKE,
   Const.SubStatement.ORDER,
   Const.SubStatement.LIMIT,
-  Const.SubStatement.OFFSET,
 ];
 
 function getColumnStatement(data?: SelectParams): string {
