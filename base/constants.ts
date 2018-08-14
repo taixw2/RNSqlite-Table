@@ -28,3 +28,8 @@ export const ComparisonOpearetor: { [key: string]: ConditionExpressionType} = {
   NOLT: "!<",
   NOTEQUAL: "!=",
 };
+
+export const OrderType = {
+  ASC: "ASC",
+  DESC: "DESC",
+};
