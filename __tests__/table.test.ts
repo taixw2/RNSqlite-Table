@@ -1,5 +1,4 @@
 import Table, { Const } from "../index";
-import { DeleteParams } from "../index.d";
 
 describe("insert", () => {
   const user = Table("User");
@@ -68,4 +67,24 @@ describe("update", () => {
     expect(user.update({ name: "Ou" }, Const.WriteAction.ROLLBACK).where({ id: 0 }).query())
       .toEqual({ stmt: "UPDATE OR ROLLBACK `User` SET `name` = ? WHERE `id` = ?", value: ["Ou", 0] });
   });
+});
+
+describe("select", () => {
+  const user = Table("User");
+
+  it("SELECT * FROM User", () => {
+    expect(user.select().query())
+      .toEqual({ stmt: "SELECT * FROM User", value: [] });
+  });
+
+  it("SELECT name as nickName, age FROM User", () => {
+    expect(user.select([{ name: "nickName" }, "age"]).query())
+      .toEqual({ stmt: "SELECT name as nickName, age FROM User", value: [] });
+  });
+
+  it("SELECT name as nickName, age FROM User WHERE name = 'Ou'", () => {
+    expect(user.select([{ name: "nickName" }, "age"]).where({ name: "Ou" }).query())
+      .toEqual({ stmt: "SELECT name as nickName, age FROM User WHERE `name` = ?", value: ["Ou"] });
+  });
+
 });
