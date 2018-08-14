@@ -1,4 +1,4 @@
-import { delete$, group, insert, like, limit, offset, order, select, update, where } from "../functions";
+import { delete$, group, insert, like, limit, order, select, update, where } from "../functions";
 import { IActionResultType, IQueryStmtType, Table } from "./../index.d";
 import { extension } from "./../utils";
 import component from "./component";
@@ -43,7 +43,7 @@ function initAction(...injectFns: Array<(result: IActionResultType) => void>) {
      * 3. [{ name: "nickName" }, "age"]
      * 4. { name: "nickName", age: "age" }
      */
-    select: component(select, where, group, like, limit, offset, order)(...injectFns),
+    select: component(select, where, group, like, limit, order)(...injectFns),
     /**
      * 入参:
      * { name: "Ou", age: 10 }
