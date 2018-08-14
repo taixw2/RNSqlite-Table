@@ -28,7 +28,7 @@ export type ConditionParams = { [key: string]: [ConditionExpressionType, BaseTyp
 export type WhereParams  = HashObject | HashObject[] | ConditionParams | ConditionParams[]
 export type InsertParams = HashObject
 export type UpdateParams = HashObject
-export type SelectParams = Array<string | HashString> | HashString
+export type SelectParams = string | Array<string | HashString> | HashString
 export type OrderParams  = string | Array<string | [string, string]>
 export type DeleteParams = WhereParams
 

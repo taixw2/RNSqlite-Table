@@ -1,6 +1,6 @@
 import { delete$, group, insert, like, limit, offset, order, select, update, where } from "../functions";
 import { IActionResultType, IQueryStmtType, Table } from "./../index.d";
-import { flat, last } from "./../utils/extension";
+import { extension } from "./../utils";
 import component from "./component";
 
 type StoreType = Map<string, IActionResultType[]>;
@@ -70,7 +70,7 @@ function initStore() {
   return {
     getLate(type: string) {
       const currentStore = store.get(type) || [];
-      return last(currentStore);
+      return extension.Array.last(currentStore);
     },
     add(value: IActionResultType) {
       const type = value.type;
@@ -91,7 +91,7 @@ export default (function table(name: string) {
   const actions = initAction(end, query);
 
   function _mergeStmtByStore() {
-    return flat(Array.from(store.values())
+    return extension.Array.flat(Array.from(store.values())
       .map((value) => value.map((actionResule) => actionResule.getStatementInfo(name))));
   }
 
