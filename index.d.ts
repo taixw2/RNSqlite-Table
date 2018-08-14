@@ -32,25 +32,30 @@ export type SelectParams = string | Array<string | HashString> | HashString
 export type OrderParams  = string | Array<string | [string, string]>
 export type DeleteParams = WhereParams
 
-export type WhereStatement  = { where(params: DeleteParams): IInjectMethods }
-export type HavingStatement = { having(): IInjectMethods }
-export type GroupStatement  = { group(params: string | string[]): IInjectMethods }
-export type OrderStatement  = { order(params: WhereParams): IInjectMethods }
-export type LimitStatement  = { limit(params: number): IInjectMethods }
-export type OffsetStatement = { offset(params: number): IInjectMethods }
-export type LikeStatement   = { like(params: string): IInjectMethods }
-
-
 interface IInjectMethods {
   query: () => IQueryStmtType,
   end  : () => ITableInstance
 }
 
+interface IUpdateMthods extends IInjectMethods {
+  where: (params: DeleteParams) => IInjectMethods
+}
+
+interface ISelectMethdos extends IInjectMethods {
+  where: (params: WhereParams) => ISelectMethdos,
+  having: () => ISelectMethdos,
+  group: (params: string | string[]) => ISelectMethdos,
+  order: (params: OrderParams) => ISelectMethdos,
+  limit: (params: number) => ISelectMethdos,
+  offset: (params: number) => ISelectMethdos,
+  like: (params: string) => ISelectMethdos,
+}
+
 interface ITableInstance {
   insert: (data: InsertParams, action?: WriteActionType) => IInjectMethods,
   delete: (data: DeleteParams) => IInjectMethods,
-  update: (data: UpdateParams, action?: WriteActionType) => IInjectMethods & WhereStatement,
-  select: (data: SelectParams) => IInjectMethods & WhereStatement & GroupStatement & HavingStatement & GroupStatement & OrderStatement & LimitStatement & OffsetStatement,
+  update: (data: UpdateParams, action?: WriteActionType) => IInjectMethods & IUpdateMthods,
+  select: (data?: SelectParams) => ISelectMethdos,
 }
 
 export type Table = (name: string) => ITableInstance;
