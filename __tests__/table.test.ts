@@ -83,7 +83,15 @@ describe("select", () => {
   });
 
   it("SELECT name as nickName, age FROM User WHERE name = 'Ou'", () => {
-    expect(user.select([{ name: "nickName" }, "age"]).where({ name: "Ou" }).query())
+    expect(
+      user.select([{ name: "nickName" }, "age"])
+        .where({ name: "Ou" })
+        .group("name")
+        .like("O_")
+        .order([{ age: Const.OrderType.DESC, createTimestamp: Const.OrderType.ASC }, "name"])
+        .limit(10, 0)
+      .query(),
+    )
       .toEqual({ stmt: "SELECT name as nickName, age FROM User WHERE `name` = ?", value: ["Ou"] });
   });
 
