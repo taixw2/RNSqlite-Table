@@ -1,4 +1,4 @@
-import Table, { Const } from "../index";
+import Table, { Const } from "../src/index";
 
 describe("insert", () => {
   const user = Table("User");
@@ -90,9 +90,16 @@ describe("select", () => {
         .like("O_")
         .order([{ age: Const.OrderType.DESC, createTimestamp: Const.OrderType.ASC }, "name"])
         .limit(10, 0)
-      .query(),
+        .query(),
     )
-      .toEqual({ stmt: "SELECT name as nickName, age FROM User WHERE `name` = ?", value: ["Ou"] });
+      .toEqual({
+        stmt: "SELECT name as nickName, age FROM User " +
+          "WHERE `name` = ? " +
+          "GROUP BY `name` " +
+          "LIKE O_ ORDER BY age DESC, createTimestamp ASC, name " +
+          "LIMIT 10 OFFSET 0",
+        value: ["Ou"],
+      });
   });
 
 });
