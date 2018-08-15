@@ -1,6 +1,6 @@
 import * as Const from "../base/constants";
 import * as Helper from "../helper/statementHelper";
-import { extension } from "../utils";
+import { extension } from "../utils/index";
 import { IActionResultType, SelectParams } from "./../index.d";
 
 const sortRult = [
@@ -18,7 +18,7 @@ function getColumnStatement(data?: SelectParams): string {
     return Object.entries(data).map((column) => `${column[0]} as ${column[1]}`).join(", ");
   }
   if (Array.isArray(data)) {
-    return data.map(getColumnStatement).join(", ");
+    return (data as any[]).map(getColumnStatement).join(", ");
   }
   throw new Error("请输入合适的参数");
 }

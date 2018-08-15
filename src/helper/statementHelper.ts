@@ -1,5 +1,5 @@
 import { IActionResultType } from "../index.d";
-import { extension } from "../utils";
+import { extension } from "../utils/index";
 
 export function subStmtInfoGenarator(childrens: IActionResultType[]) {
   const subStmtInfos = childrens.map((children) => children.getStatementInfo());
