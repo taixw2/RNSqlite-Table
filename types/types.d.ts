@@ -9,6 +9,13 @@ export type Real                    = "REAL" | "DOUBLE" | "DOUBLE PRECISION" | "
 export type Numeric                 = "NUMERIC" | "DECIMAL" | "BOOLEAN" | "DATE" | "DATETIME";
 export type WriteActionType         = "REPLACE" | "ROLLBACK" | "ABORT" | "FAIL" | "IGNORE"
 export type ConditionExpressionType = "=" | "!=" | "<" | ">" | ">=" | "<=" | "!<" | "!>"
+export type ConditionParams = { [key: string]: [ConditionExpressionType, BaseType] | BaseType }
+export type WhereParams  = HashObject | HashObject[] | ConditionParams | ConditionParams[]
+export type InsertParams = HashObject
+export type UpdateParams = HashObject
+export type SelectParams = string | Array<string | HashString> | HashString
+export type OrderParams  = string | Array<string | HashString>
+export type DeleteParams = WhereParams
 
 // query 返回的数据类型
 export interface IQueryStmtType {
@@ -22,15 +29,6 @@ export interface IActionResultType {
   getStatementInfo: (table?: string) => IQueryStmtType;
   children?       : { [key: string]: IActionResultType }
 }
-
-export type ConditionParams = { [key: string]: [ConditionExpressionType, BaseType] | BaseType }
-
-export type WhereParams  = HashObject | HashObject[] | ConditionParams | ConditionParams[]
-export type InsertParams = HashObject
-export type UpdateParams = HashObject
-export type SelectParams = string | Array<string | HashString> | HashString
-export type OrderParams  = string | Array<string | HashString>
-export type DeleteParams = WhereParams
 
 interface IInjectMethods {
   query: () => IQueryStmtType,
@@ -58,6 +56,5 @@ interface ITableInstance {
 }
 
 export type Table = (name: string) => ITableInstance;
-export default Table;
 
 

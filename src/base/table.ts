@@ -1,5 +1,5 @@
+import { IActionResultType, IQueryStmtType, Table } from "../../types/types";
 import { delete$, group, insert, like, limit, order, select, update, where } from "../functions";
-import { IActionResultType, IQueryStmtType, Table } from "./../index.d";
 import { extension } from "./../utils";
 import component from "./component";
 

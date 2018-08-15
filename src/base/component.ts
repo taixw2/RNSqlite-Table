@@ -1,4 +1,4 @@
-import { IActionResultType } from "../index.d";
+import { IActionResultType } from "../../types/types";
 
 type InjectFuncType = (value: IActionResultType) => void;
 type ActionFuncType = (...args: any[]) => IActionResultType;

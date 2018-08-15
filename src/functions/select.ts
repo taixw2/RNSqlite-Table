@@ -1,7 +1,7 @@
+import { IActionResultType, SelectParams } from "../../types/types";
 import * as Const from "../base/constants";
 import * as Helper from "../helper/statementHelper";
 import { extension } from "../utils/index";
-import { IActionResultType, SelectParams } from "./../index.d";
 
 const sortRult = [
   Const.SubStatement.WHERE,

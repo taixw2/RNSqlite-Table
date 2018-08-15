@@ -1,4 +1,4 @@
-import { IActionResultType } from "../index.d";
+import { IActionResultType } from "../../types/types";
 import { extension } from "../utils/index";
 
 export function subStmtInfoGenarator(childrens: IActionResultType[]) {

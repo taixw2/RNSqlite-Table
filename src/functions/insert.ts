@@ -1,4 +1,4 @@
-import { IActionResultType, InsertParams, WriteActionType } from "./../index.d";
+import { IActionResultType, InsertParams, WriteActionType } from "../../types/types";
 
 function InsertGenerator(table: string, columns: string, values: string, action: string) {
   return `INSERT INTO ${action}\`${table}\` (${columns}) VALUES (${values})`;

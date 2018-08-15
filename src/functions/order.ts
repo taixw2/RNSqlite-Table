@@ -1,5 +1,5 @@
+import { IActionResultType, OrderParams } from "../../types/types";
 import * as Const from "../base/constants";
-import { IActionResultType, OrderParams } from "../index.d";
 import { extension } from "../utils";
 
 function generator(data: OrderParams) {

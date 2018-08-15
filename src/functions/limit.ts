@@ -1,5 +1,5 @@
+import { IActionResultType } from "../../types/types";
 import * as Const from "../base/constants";
-import { IActionResultType } from "../index.d";
 
 function generator(limitValue: number, offsetValue?: number) {
   const prefix = `LIMIT ${limitValue}`;

@@ -1,4 +1,4 @@
-import { ConditionExpressionType, WriteActionType } from "./../index.d";
+import { ConditionExpressionType, WriteActionType } from "../../types/types";
 
 export const SubStatement = {
   GROUP: "GROUP",

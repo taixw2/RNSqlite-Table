@@ -1,5 +1,5 @@
+import { BaseType, ConditionExpressionType, IActionResultType, IQueryStmtType, WhereParams } from "../../types/types";
 import * as Const from "../base/constants";
-import { BaseType, ConditionExpressionType, IActionResultType, IQueryStmtType, WhereParams } from "./../index.d";
 import { extension } from "./../utils";
 
 function paramsParse(data: WhereParams): Array<{[key: string]: [ConditionExpressionType, BaseType]}> {

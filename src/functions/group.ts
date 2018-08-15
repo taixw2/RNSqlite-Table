@@ -1,6 +1,6 @@
+import { IActionResultType } from "../../types/types";
 import * as Const from "../base/constants";
 import { extension } from "../utils";
-import { IActionResultType } from "./../index.d";
 
 function generator(data: string | string[]): string {
   if (extension.String.isString(data)) {

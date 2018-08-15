@@ -1,4 +1,4 @@
-import { DeleteParams, IActionResultType } from "./../index.d";
+import { DeleteParams, IActionResultType } from "../../types/types";
 import where from "./where";
 
 export default function delete$(data: DeleteParams): IActionResultType {

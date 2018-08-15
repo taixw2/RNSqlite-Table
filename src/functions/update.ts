@@ -1,7 +1,7 @@
+import { IActionResultType, UpdateParams, WriteActionType } from "../../types/types";
 import * as Const from "../base/constants";
 import * as Helper from "../helper/statementHelper";
 import { extension } from "../utils";
-import { IActionResultType, UpdateParams, WriteActionType } from "./../index.d";
 
 const keyRules = [Const.SubStatement.WHERE];
 
