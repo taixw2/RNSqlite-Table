@@ -33,3 +33,8 @@ export const OrderType = {
   ASC: "ASC",
   DESC: "DESC",
 };
+
+export const AlterType: { [key: string]: "rename" | "addColumn" } = {
+  addColumn: "addColumn",
+  rename: "rename",
+};

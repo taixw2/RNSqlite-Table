@@ -8,3 +8,4 @@ export { default as order } from "./order";
 export { default as select } from "./select";
 export { default as update } from "./update";
 export { default as where } from "./where";
+export { default as alter } from "./alter";

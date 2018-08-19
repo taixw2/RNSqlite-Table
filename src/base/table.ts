@@ -1,5 +1,7 @@
 import { IActionResultType, IQueryStmtType, Table } from "../../types/types";
-import { delete$, group, insert, like, limit, order, select, update, where } from "../functions";
+import {
+  alter, delete$, group, insert, like, limit, order, select, update, where,
+} from "../functions";
 import { extension } from "./../utils";
 import component from "./component";
 
@@ -21,6 +23,12 @@ type StoreType = Map<string, IActionResultType[]>;
  */
 function initAction(...injectFns: Array<(result: IActionResultType) => void>) {
   return {
+    /**
+     * 入参：
+     * 1. { type: "rename", "name": "111" }
+     * 2. { type: "addColumn", column: { type: "INT", length: 10 } }
+     */
+    alter: component(alter)(...injectFns),
     /**
      * 入参：
      * 1. { age: 10 }

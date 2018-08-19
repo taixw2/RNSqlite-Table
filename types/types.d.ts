@@ -4,7 +4,7 @@ export type HashObject              = { [key: string]: BaseType }
 export type HashString              = { [key: string]: string }
 export type None                    = "BLOB";
 export type Integer                 = "INT" | "INTEGER" | "TINYINT" | "SMALLINT" | "MEDIUMINT" | "BIGINT" | "UNSIGNED BIG INT" | "INT2" | "INT8";
-export type Text                    = "CHARACTER" | "VARCHAR" | "VARYING CHARACTER" | "NCHAR" | "NATIVE CHARACTER" | "NVARCHAR" | "TEXT" | "CLOB";
+export type Text                    = "CHARACTER" | "VARCHAR" | "VARYING CHARACTER" | "NCHAR" | "NATIVE CHARACTER" | "NVARCHAR" | "TEXT" | "CLOB" | "CHAR";
 export type Real                    = "REAL" | "DOUBLE" | "DOUBLE PRECISION" | "FLOAT";
 export type Numeric                 = "NUMERIC" | "DECIMAL" | "BOOLEAN" | "DATE" | "DATETIME";
 export type WriteActionType         = "REPLACE" | "ROLLBACK" | "ABORT" | "FAIL" | "IGNORE"
@@ -16,6 +16,9 @@ export type UpdateParams = HashObject
 export type SelectParams = string | Array<string | HashString> | HashString
 export type OrderParams  = string | Array<string | HashString>
 export type DeleteParams = WhereParams
+export type AlterParams = Alter.IRename | Alter.IAddColumn
+
+export type DataType = None | Integer | Text | Real | Numeric
 
 // query 返回的数据类型
 export interface IQueryStmtType {
@@ -28,6 +31,22 @@ export interface IActionResultType {
   data            : any;
   getStatementInfo: (table?: string) => IQueryStmtType;
   children?       : { [key: string]: IActionResultType }
+}
+
+declare namespace Alter {
+  export interface IRename {
+    type: "rename"
+    name: string
+  }
+
+  export interface IAddColumn {
+    type: "addColumn",
+    column: {
+      name: string,
+      type: DataType,
+      length?: number
+    }
+  }
 }
 
 interface IInjectMethods {
@@ -49,6 +68,7 @@ interface ISelectMethdos extends IInjectMethods {
 }
 
 interface ITableInstance {
+  alter: (data: AlterParams) => IInjectMethods,
   insert: (data: InsertParams, action?: WriteActionType) => IInjectMethods,
   delete: (data: DeleteParams) => IInjectMethods,
   update: (data: UpdateParams, action?: WriteActionType) => IInjectMethods & IUpdateMthods,

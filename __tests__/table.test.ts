@@ -103,3 +103,23 @@ describe("select", () => {
   });
 
 });
+
+describe("alter", () => {
+  const user = Table("COMPANY");
+
+  it("ALTER TABLE COMPANY RENAME TO `OLD_COMPANY`", () => {
+    expect(user.alter({ type: "rename", name: "OLD_COMPANY" }).query())
+      .toEqual({ stmt: "ALTER TABLE COMPANY RENAME TO `OLD_COMPANY`", value: [] });
+  });
+
+  it("ALTER TABLE COMPANY ADD COLUMN `SEX` CHAR(1)", () => {
+    expect(user.alter({ type: "addColumn", column: { name: "SEX", type: "CHAR", length: 1 } }).query())
+      .toEqual({ stmt: "ALTER TABLE COMPANY ADD COLUMN `SEX` CHAR(1)", value: [] });
+  });
+
+  it("ALTER TABLE COMPANY ADD COLUMN `nick_name` TEXT", () => {
+    expect(user.alter({ type: "addColumn", column: { name: "nick_name", type: "TEXT" } }).query())
+      .toEqual({ stmt: "ALTER TABLE COMPANY ADD COLUMN `nick_name` TEXT", value: [] });
+  });
+
+});
