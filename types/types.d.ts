@@ -69,6 +69,7 @@ interface ISelectMethdos extends IInjectMethods {
 
 interface ITableInstance {
   alter: (data: AlterParams) => IInjectMethods,
+  drop: () => IInjectMethods,
   insert: (data: InsertParams, action?: WriteActionType) => IInjectMethods,
   delete: (data: DeleteParams) => IInjectMethods,
   update: (data: UpdateParams, action?: WriteActionType) => IInjectMethods & IUpdateMthods,

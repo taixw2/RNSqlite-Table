@@ -1,6 +1,6 @@
 import { IActionResultType, IQueryStmtType, Table } from "../../types/types";
 import {
-  alter, delete$, group, insert, like, limit, order, select, update, where,
+  alter, delete$, drop, group, insert, like, limit, order, select, update, where,
 } from "../functions";
 import { extension } from "./../utils";
 import component from "./component";
@@ -36,6 +36,11 @@ function initAction(...injectFns: Array<(result: IActionResultType) => void>) {
      * 3. [{ age: 10 }, { age: 20 }]
      */
     delete: component(delete$)(...injectFns),
+    /**
+     * 入参：
+     * 1. string
+     */
+    drop: component(drop)(...injectFns),
     /**
      * 入参：
      * 1. ({ a: 10, b: 20 })

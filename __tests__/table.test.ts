@@ -123,3 +123,13 @@ describe("alter", () => {
   });
 
 });
+
+describe("drop", () => {
+  const user = Table("COMPANY");
+
+  it("DROP TABLE COMPANY", () => {
+    expect(user.drop().query())
+      .toEqual({ stmt: "DROP TABLE COMPANY", value: [] });
+  });
+
+});
