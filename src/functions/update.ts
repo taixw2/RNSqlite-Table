@@ -17,7 +17,6 @@ export default function update(data: UpdateParams, action?: WriteActionType): IA
     data: {},
     type: update.name,
     getStatementInfo(table: string) {
-      if (extension.Object.isEmpty(result.children)) { throw new Error("缺少 where 子句"); }
       const stmt = generator(table, Object.keys(data), actionStr);
       const subStmtInfo = Helper.subStmtInfoGenarator(extension.Object.soryObject(result.children, keyRules));
       return { stmt: stmt + subStmtInfo.stmt, value: Object.values(data).concat(subStmtInfo.value) };
