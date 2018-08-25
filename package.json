@@ -1,6 +1,6 @@
 {
   "name": "rn-sqlite-table",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "description": "Write sql using declarative",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -18,7 +18,8 @@
     "test": "jest",
     "clear": "rimraf build/*",
     "tsc": "tsc",
-    "build": "run-s clear tsc"
+    "build": "run-s clear tsc",
+    "prepublish": "run-s build"
   },
   "repository": {
     "type": "git",
