@@ -1,7 +1,7 @@
 import { IActionResultType, InsertParams, WriteActionType } from "../../types/types";
 
 function InsertGenerator(table: string, columns: string, values: string, action: string) {
-  return `INSERT INTO ${action}\`${table}\` (${columns}) VALUES (${values})`;
+  return `INSERT ${action}INTO\`${table}\` (${columns}) VALUES (${values})`;
 }
 
 export default function insert(data: InsertParams, action?: WriteActionType): IActionResultType {
