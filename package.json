@@ -1,6 +1,6 @@
 {
   "name": "rn-sqlite-table",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Write sql using declarative",
   "main": "build/index.js",
   "types": "build/index.d.ts",
